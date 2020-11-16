@@ -1,11 +1,7 @@
-#requires -version 7.1
 
-#region Main
+. $PSScriptRoot\functions\private.ps1
+. $PSScriptRoot\functions\public.ps1
 
-Get-VMHardDiskDrive Set-VMHardDiskDrive Remove-VMHardDiskDrive Add-VMHardDiskDrive Enter-PSSession Invoke-PSSession
-
-#endregion
-
-#define aliases
-
-
+Update-TypeData -TypeName cimFolder -DefaultDisplayPropertySet Mode, LastModified, Size, Name -Force
+Update-TypeData -TypeName cimFile -MemberType AliasProperty -MemberName Size -Value FileSize -Force
+Update-TypeData -TypeName cimFile -DefaultDisplayPropertySet Mode, LastModified, Size, Name -Force

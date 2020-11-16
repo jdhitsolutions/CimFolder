@@ -1,6 +1,6 @@
 # CimFolder
 
-{INSERT CONTENT}
+This module uses CIM classes to retrieve files and directories from the local computer.
+The module is a sample solution for an Iron Scripter challenge.
 
-_last updated 11/16/2020 16:58:59_
-
+last updated _2020-11-16 22:11:59Z_

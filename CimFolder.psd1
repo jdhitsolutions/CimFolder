@@ -28,10 +28,10 @@ CompanyName = 'JDH Information Technology Solutions, Inc.'
 Copyright = '2020 JDH Information Technology Solutions, Inc.'
 
 # Description of the functionality provided by this module
-# Description = ''
+Description = 'Get files and folders using CIM.'
 
 # Minimum version of the PowerShell engine required by this module
-# PowerShellVersion = ''
+PowerShellVersion = '7.1'
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''

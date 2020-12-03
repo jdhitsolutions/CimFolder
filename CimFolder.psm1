@@ -4,6 +4,7 @@
 . $PSScriptRoot\functions\public.ps1
 
 #add type extensions
-Update-TypeData -TypeName cimFolder -DefaultDisplayPropertySet Mode, LastModified, Size, Name -Force
 Update-TypeData -TypeName cimFile -MemberType AliasProperty -MemberName Size -Value FileSize -Force
+Update-TypeData -TypeName cimFile -MemberType ScriptProperty -MemberName ModifiedAge -Value {New-Timespan $this.LastModified} -Force
+Update-TypeData -TypeName cimFolder -DefaultDisplayPropertySet Mode, LastModified, Size, Name -Force
 Update-TypeData -TypeName cimFile -DefaultDisplayPropertySet Mode, LastModified, Size, Name -Force

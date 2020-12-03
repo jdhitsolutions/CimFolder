@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Format type data generated 10/21/2020 17:19:32 by PROSPERO\Jeff
+
 This file was created using the New-PSFormatXML command that is part
 of the PSScriptTools module.
 https://github.com/jdhitsolutions/PSScriptTools
@@ -78,20 +79,98 @@ This file will only work properly in PowerShell 7
               </TableColumnItem>
               <TableColumnItem>
                 <ScriptBlock>
-                  <!-- show Directories, hidden, compressed or encrypted files in color using ANSI-->
-                  if ($_.GetType().Name -eq 'cimFolder') {
-                    "`e[38;5;228m$($_.name)`e[0m"
-                  }
+                  <!--
+                    Show Directories, hidden, compressed or encrypted files in color using ANSI
+                    The escape sequences are written for PowerShell 7.x
+                  -->
+                  if ($_.Hidden) {
+                    "`e[38;5;105m$($_.name)`e[0m"
+                    }
                   elseif ($_.Encrypted -OR $_.compressed) {
                       "`e[38;5;201m$($_.name)`e[0m"
                   }
-                  elseif ($_.Hidden) {
-                    "`e[38;5;105m$($_.name)`e[0m"
-                    }
+                  elseif ($_.GetType().Name -eq 'cimFolder') {
+                    "`e[38;5;228m$($_.name)`e[0m"
+                  }
                   else {
                     $_.name
                   }
                 </ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <!--Created 12/03/2020 10:22:19 by PROSPERO\Jeff-->
+      <Name>age</Name>
+      <ViewSelectedBy>
+        <SelectionSetName>cimFileTypes</SelectionSetName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <!--
+            You can also use a scriptblock to define a custom property name.
+            You must have a Label tag.
+            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
+            <Label>Computername</Label>
+
+            Use <Label> to set the displayed value.
+-->
+        <Label>Path</Label>
+        <ScriptBlock>Join-Path -path $_.drive -childpath $_.path  </ScriptBlock>
+      </GroupBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.
+        <AutoSize />-->
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Mode</Label>
+            <Width>8</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Size</Label>
+            <Width>8</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Name</Label>
+            <Width>25</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>LastModified</Label>
+            <Width>24</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>ModifiedAge</Label>
+            <Width>13</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <!--
+            By default the entries use property names, but you can replace them with scriptblocks.
+            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
+-->
+              <TableColumnItem>
+                <PropertyName>Mode</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Size</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>LastModified</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>"{0:dd\.hh\:mm\:ss}" -f (New-TimeSpan $_.lastmodified)</ScriptBlock>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>

@@ -1,3 +1,7 @@
+
+#region class definitions
+
+#the classes have no methods and use the default constructor
 Class cimFolder {
     [string]$FullName
     [string]$Name
@@ -15,7 +19,7 @@ Class cimFolder {
     [bool]$System
     [bool]$Writeable
     [string]$Mode
-}
+} #cimFolder class
 
 Class cimFile {
     [string]$FullName
@@ -35,7 +39,12 @@ Class cimFile {
     [bool]$System
     [bool]$Writeable
     [string]$Mode
-}
+} #cimFile class
+
+#endregion
+
+#region helper functions to create the new object types.
+
 Function Get-Mode {
     [cmdletbinding()]
     param([object]$CimObject)
@@ -49,9 +58,7 @@ Function Get-Mode {
     $hidden = $CimObject.Hidden ? "h" : "-"
 
     "{0}{1}{2}{3}{4}" -f $Dir, $Archive, $RO, $Hidden, $System
-}
-
-
+} #Get-Mode
 Function New-CimFile {
     [cmdletbinding()]
     Param(
@@ -77,7 +84,7 @@ Function New-CimFile {
     End {
         #not used
     }
-}
+} #New-CimFile
 Function New-CimFolder {
     [cmdletbinding()]
     Param(
@@ -101,6 +108,8 @@ Function New-CimFolder {
         $folder
     }
     End {
-
+        #not used
     }
-}
+} #New-CimFolder
+
+#endregion

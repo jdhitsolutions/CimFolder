@@ -10,15 +10,15 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command uses CIM to list files and folders.</maml:para>
+      <maml:para>This command uses CIM to list files and folders. You can query a local or remote computer using CIM and a WSMAN connection. Be aware that not every file and folder is completely registered. You may run the command on a folder and not see every file or folder.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-CimFolder</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Path</maml:name>
           <maml:Description>
-            <maml:para>Enter the folder path. Don't include the trailing \.</maml:para>
+            <maml:para>Enter the folder path. Don't include the trailing \. This path is relative to the computer or CIMSession.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -30,7 +30,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>CimSession</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill CimSession Description }}</maml:para>
+            <maml:para>Use an existing CIMSession.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">CimSession</command:parameterValue>
           <dev:type>
@@ -42,7 +42,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Recurse</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill Recurse Description }}</maml:para>
+            <maml:para></maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -53,10 +53,10 @@
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Get-CimFolder</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Path</maml:name>
           <maml:Description>
-            <maml:para>Enter the folder path. Don't include the trailing \.</maml:para>
+            <maml:para>Enter the folder path. Don't include the trailing \. This path is relative to the computer or CIMSession.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -68,19 +68,19 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cn">
           <maml:name>Computername</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill Computername Description }}</maml:para>
+            <maml:para>The name of a remote computer to connect to.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
             <maml:uri />
           </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
+          <dev:defaultValue>localhost</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Recurse</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill Recurse Description }}</maml:para>
+            <maml:para></maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -94,7 +94,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>CimSession</maml:name>
         <maml:Description>
-          <maml:para>{{ Fill CimSession Description }}</maml:para>
+          <maml:para>Use an existing CIMSession.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">CimSession</command:parameterValue>
         <dev:type>
@@ -106,19 +106,19 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cn">
         <maml:name>Computername</maml:name>
         <maml:Description>
-          <maml:para>{{ Fill Computername Description }}</maml:para>
+          <maml:para>The name of a remote computer to connect to.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
           <maml:uri />
         </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
+        <dev:defaultValue>localhost</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Path</maml:name>
         <maml:Description>
-          <maml:para>Enter the folder path. Don't include the trailing \.</maml:para>
+          <maml:para>Enter the folder path. Don't include the trailing \. This path is relative to the computer or CIMSession.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -130,7 +130,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Recurse</maml:name>
         <maml:Description>
-          <maml:para>{{ Fill Recurse Description }}</maml:para>
+          <maml:para></maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -176,9 +176,37 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Get-CimFolder c:\work
+
+   Path: [WIN10] c:\work\
+
+Mode               LastModified           Size Name
+----               ------------           ---- ----
+d----      12/2/2020 4:35:03 PM                data
+d----     12/1/2020 12:30:56 PM                demo
+d----     12/23/2020 9:13:37 AM                rmhpstools
+d----      12/1/2020 2:58:22 PM                samples
+-a---     12/1/2020 11:30:55 AM              0 a.csv
+-a---     12/1/2020 12:40:03 PM              0 a.md
+-a---     12/31/2020 9:10:15 AM          14346 a.txt
+-a---    12/31/2020 12:15:44 PM         171394 a.xml
+-a---     12/31/2020 9:13:16 AM          28866 aa.ps1
+...</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Folders and some files will be displayed in color.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-CimFolder -path c:\drivers -computername ThinkP1
+
+   Path: [THINKP1] c:\drivers\
+
+Mode               LastModified           Size Name
+----               ------------           ---- ----
+d----      2/20/2019 5:53:23 PM                WIN</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

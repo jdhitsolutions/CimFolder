@@ -1,5 +1,13 @@
 # Changelog for CimFolder
 
+## v0.3.0
+
++ Added external help.
++ Made `Path` parameter in `Get-CimFolder` mandatory and with no default.
++ Fixed path validation bugs that were failing when querying a remote computer.
++ Added computer name to default table format.
++ Modified `Age` formatted view to highlight old and young files in color.
+
 ## v0.2.0
 
 + Added a new type extension to `cimFile` called `ModifiedAge`.

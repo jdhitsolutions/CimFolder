@@ -3,14 +3,14 @@ Function Get-CimFolder {
     [alias("cdir")]
     [OutputType("cimFolder", "cimFile")]
     Param(
-        [Parameter(Position = 0, HelpMessage = "Enter the folder path. Don't include the trailing \.")]
+        [Parameter(Position = 0, Mandatory,HelpMessage = "Enter the folder path. Don't include the trailing \. If using a remote computer or CIMSession, the path is relative to the remote system.")]
         [ValidateNotNullorEmpty()]
-        [string]$Path = ".",
+        [string]$Path,
         [switch]$Recurse,
         [Parameter(ParameterSetName = "computer")]
         [ValidateNotNullOrEmpty()]
         [alias("cn")]
-        [string]$Computername = $ENV:Computername,
+        [string]$Computername = $env:COMPUTERNAME,
         [Parameter(ParameterSetName = "session")]
         [ValidateNotNullOrEmpty()]
         [Microsoft.Management.Infrastructure.CimSession]$CimSession
@@ -22,26 +22,37 @@ Function Get-CimFolder {
             Filter     = ""
             CimSession = ""
         }
-
     } #begin
+
     Process {
         #convert Path to a file system path
         if ($path -match '\\$') {
             Write-Verbose "Stripping off a trailing slash"
             $path = $path -replace "\\$", ""
         }
-        Try {
-            $cpath = Convert-Path -Path $path -ErrorAction Stop
-            #escape any \ in the path
+        #if running locally, convert the path
+        if ($Computername -eq [System.Environment]::MachineName -AND ($psmcmdlet.ParameterSetName -eq 'Computer')) {
+            Write-Verbose "Converting local path $path"
+            Try {
+                $cpath = Convert-Path -Path $path -ErrorAction Stop
+                #escape any \ in the path
+                $rPath = $cpath.replace("\", "\\")
+                $cimParams.Filter = "Name='$rpath'"
+            }
+            Catch {
+                Write-Warning "Can't validate the path $path. $($_.Exception.Message)"
+                #bail out
+                return
+            }
+        } #if localhost
+        else {
+            Write-Verbose "Using remote path $path"
+            $cPath = $path
             $rPath = $cpath.replace("\", "\\")
             $cimParams.Filter = "Name='$rpath'"
-            Write-Verbose "Using query $($cimparams.filter)"
         }
-        Catch {
-            Write-Warning "Can't validate the path $path. $($_.Exception.Message)"
-            #bail out
-            return
-        }
+
+        Write-Verbose "Using query $($cimparams.filter)"
         if ($pscmdlet.ParameterSetName -eq 'computer') {
             Try {
                 $cimSession = New-CimSession -ComputerName $computername -ErrorAction Stop
@@ -56,19 +67,23 @@ Function Get-CimFolder {
             $tmpSession = $False
         }
         $cimParams.Cimsession = $CimSession
+
         Write-Verbose "Getting $cpath on $($cimsession.computername)"
+
         $main = Get-CimInstance @cimParams
 
         #filter out the parent folder
+        Write-Verbose "Creating new CimFolder objects"
         $main | Get-CimAssociatedInstance -ResultClassName Win32_Directory |
-            Where-Object { (Split-Path $_.name) -eq $main.name } | New-CimFolder -outvariable cf
+        Where-Object { (Split-Path $_.name) -eq $main.name } | New-CimFolder -outvariable cf
 
+        Write-Verbose "Creating new CimFile objects"
         $main | Get-CimAssociatedInstance -ResultClassName CIM_DATAFile | New-Cimfile
 
         if ($cf -AND $recurse) {
             Write-Verbose "Recursing..."
             foreach ($fldr in $cf.fullname) {
-                Write-Verbose $fldr
+                Write-Verbose "Processing sub-folder $fldr"
                 Get-CimFolder -path $Fldr -CimSession $cimSession
             }
         }

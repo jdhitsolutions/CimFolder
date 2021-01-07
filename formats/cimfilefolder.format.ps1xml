@@ -34,7 +34,10 @@ This file will only work properly in PowerShell 7
             Use <Label> to set the displayed value.
 -->
         <Label>Path</Label>
-        <ScriptBlock>Join-Path -path $_.drive -childpath $_.path  </ScriptBlock>
+        <ScriptBlock>
+          $p = Join-Path -path $_.drive -childpath $_.path
+          "`e[38;5;228m[$($_.computername)] $p`e[0m"
+        </ScriptBlock>
       </GroupBy>
       <TableControl>
         <!--Delete the AutoSize node if you want to use the defined widths.
@@ -118,7 +121,9 @@ This file will only work properly in PowerShell 7
             Use <Label> to set the displayed value.
 -->
         <Label>Path</Label>
-        <ScriptBlock>Join-Path -path $_.drive -childpath $_.path  </ScriptBlock>
+        <ScriptBlock>$p = Join-Path -path $_.drive -childpath $_.path
+          "`e[38;5;228m[$($_.computername)] $p`e[0m"
+          </ScriptBlock>
       </GroupBy>
       <TableControl>
         <!--Delete the AutoSize node if you want to use the defined widths.
@@ -170,7 +175,20 @@ This file will only work properly in PowerShell 7
                 <PropertyName>LastModified</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <ScriptBlock>"{0:dd\.hh\:mm\:ss}" -f (New-TimeSpan $_.lastmodified)</ScriptBlock>
+              <!-- highlight old and young files in color -->
+                <ScriptBlock>
+                $ts = New-TimeSpan $_.lastmodified
+                $value = "{0:dd\.hh\:mm\:ss}" -f $ts
+                if ($ts.totalDays -ge 90) {
+                  "`e[38;5;199m$Value`e[0m"
+                }
+                elseif ($ts.totalDays -le 7) {
+                  "`e[38;5;82m$Value`e[0m"
+                }
+                Else {
+                  $value
+                }
+                </ScriptBlock>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>

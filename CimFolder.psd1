@@ -10,7 +10,7 @@
 RootModule = 'CimFolder.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.2.0'
+ModuleVersion = '0.3.0'
 
 # Supported PSEditions
 CompatiblePSEditions = @('Core')
@@ -25,7 +25,7 @@ Author = 'Jeff Hicks'
 CompanyName = 'JDH Information Technology Solutions, Inc.'
 
 # Copyright statement for this module
-Copyright = '2020 JDH Information Technology Solutions, Inc.'
+Copyright = '2020-2021 JDH Information Technology Solutions, Inc.'
 
 # Description of the functionality provided by this module
 Description = 'Get files and folders using CIM.'

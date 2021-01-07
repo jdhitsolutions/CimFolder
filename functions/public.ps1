@@ -25,19 +25,20 @@ Function Get-CimFolder {
     } #begin
 
     Process {
+        Write-Verbose "Detected parameter set $($pscmdlet.ParameterSetName)"
         #convert Path to a file system path
+
         if ($path -match '\\$') {
             Write-Verbose "Stripping off a trailing slash"
             $path = $path -replace "\\$", ""
+            Write-Verbose "Path is now $Path"
         }
+
         #if running locally, convert the path
-        if ($Computername -eq [System.Environment]::MachineName -AND ($psmcmdlet.ParameterSetName -eq 'Computer')) {
-            Write-Verbose "Converting local path $path"
+        if (($Computername -eq $env:COMPUTERNAME) -AND ($pscmdlet.ParameterSetName -eq 'Computer')) {
+            Write-Verbose "Testing local path $path"
             Try {
                 $cpath = Convert-Path -Path $path -ErrorAction Stop
-                #escape any \ in the path
-                $rPath = $cpath.replace("\", "\\")
-                $cimParams.Filter = "Name='$rpath'"
             }
             Catch {
                 Write-Warning "Can't validate the path $path. $($_.Exception.Message)"
@@ -47,10 +48,11 @@ Function Get-CimFolder {
         } #if localhost
         else {
             Write-Verbose "Using remote path $path"
-            $cPath = $path
-            $rPath = $cpath.replace("\", "\\")
-            $cimParams.Filter = "Name='$rpath'"
+            $cPath =  [System.IO.Path]::GetFullPath($path)
         }
+        #escape any \ in the path
+        $rPath = $cpath.replace("\", "\\")
+        $cimParams.Filter = "Name='$rpath'"
 
         Write-Verbose "Using query $($cimparams.filter)"
         if ($pscmdlet.ParameterSetName -eq 'computer') {

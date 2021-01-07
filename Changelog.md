@@ -1,5 +1,11 @@
 # Changelog for CimFolder
 
+## v0.4.0
+
++ Fixed a bug in `Get-CimFolder` that was failing to enumerate a drive path like C:\ or D:\.
++ Help updates.
++ Updated `README.md`.
+
 ## v0.3.0
 
 + Added external help.

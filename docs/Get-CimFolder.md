@@ -102,7 +102,7 @@ Accept wildcard characters: False
 
 ### -Path
 
-Enter the folder path. Don't include the trailing \. This path is relative to the computer or CIMSession.
+Enter the folder path. Don't include the trailing \ unless you are querying a drive root e.g. D:\. This path is relative to the computer or CIMSession.
 
 ```yaml
 Type: String
@@ -151,3 +151,7 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 ## RELATED LINKS
 
 [Get-ChildItem]()
+
+[Get-CimInstance]()
+
+[Get-CimAssociatedInstance]()

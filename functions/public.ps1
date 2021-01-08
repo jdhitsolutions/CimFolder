@@ -26,8 +26,8 @@ Function Get-CimFolder {
 
     Process {
         Write-Verbose "Detected parameter set $($pscmdlet.ParameterSetName)"
-        #convert Path to a file system path
-
+        Write-Verbose "Using PSBoundParameters:"
+        $PSBoundParameters | Out-String | Write-Verbose
         if ($path -match '\\$') {
             Write-Verbose "Stripping off a trailing slash"
             $path = $path -replace "\\$", ""
@@ -38,6 +38,7 @@ Function Get-CimFolder {
         if (($Computername -eq $env:COMPUTERNAME) -AND ($pscmdlet.ParameterSetName -eq 'Computer')) {
             Write-Verbose "Testing local path $path"
             Try {
+                #convert Path to a file system path
                 $cpath = Convert-Path -Path $path -ErrorAction Stop
             }
             Catch {
@@ -77,17 +78,18 @@ Function Get-CimFolder {
         #filter out the parent folder
         Write-Verbose "Creating new CimFolder objects"
         $main | Get-CimAssociatedInstance -ResultClassName Win32_Directory |
-        Where-Object { (Split-Path $_.name) -eq $main.name } | New-CimFolder -outvariable cf
+        Where-Object { (Split-Path $_.name) -eq $main.name } | New-CimFolder | Tee-Object -variable private:cf
 
         Write-Verbose "Creating new CimFile objects"
         $main | Get-CimAssociatedInstance -ResultClassName CIM_DATAFile | New-Cimfile
-
-        if ($cf -AND $recurse) {
+        #using a private variable to avoid scoping problems when recursing. Jan 8, 2021 JDH (Issue #1)
+        if ($private:cf.count -gt 0 -AND $Recurse) {
             Write-Verbose "Recursing..."
-            foreach ($fldr in $cf.fullname) {
-                Write-Verbose "Processing sub-folder $fldr"
-                Get-CimFolder -path $Fldr -CimSession $cimSession
+            foreach ($fldr in $private:cf) {
+                Write-Verbose "... $($fldr.fullname)"
+                Get-CimFolder -path $fldr.fullname -CimSession $cimSession -recurse
             }
+
         }
 
         if ($cimSession -AND $tmpSession) {

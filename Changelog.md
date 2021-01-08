@@ -1,5 +1,9 @@
 # Changelog for CimFolder
 
+## v0.5.0
+
++ Fixed recursion bug in `Get-CimFolder`. (Issue #1)
+
 ## v0.4.0
 
 + Fixed a bug in `Get-CimFolder` that was failing to enumerate a drive path like C:\ or D:\.

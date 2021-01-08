@@ -8,6 +8,8 @@ This module is a sample solution for an [Iron Scripter challenge](https://ironsc
 
 The module will only work on PowerShell 7.x on Windows platforms, although it could be rewritten to work in Windows PowerShell.
 
+For background information on how I developed this module, take a look at [https://jdhitsolutions.com/blog/powershell/7992/answering-the-cim-directory-challenge/](https://jdhitsolutions.com/blog/powershell/7992/answering-the-cim-directory-challenge/).
+
 ## Sample Usage
 
 Here are a few examples of the module in action.

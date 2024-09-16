@@ -1,31 +1,31 @@
 Function Get-CimFolder {
-    [cmdletbinding(DefaultParameterSetName = "computer")]
+    [CmdletBinding(DefaultParameterSetName = "computer")]
     [alias("cdir")]
     [OutputType("cimFolder", "cimFile")]
     Param(
         [Parameter(Position = 0, Mandatory,HelpMessage = "Enter the folder path. Don't include the trailing \. If using a remote computer or CIMSession, the path is relative to the remote system.")]
-        [ValidateNotNullorEmpty()]
-        [string]$Path,
-        [switch]$Recurse,
+        [ValidateNotNullOrEmpty()]
+        [String]$Path,
+        [Switch]$Recurse,
         [Parameter(ParameterSetName = "computer")]
         [ValidateNotNullOrEmpty()]
         [alias("cn")]
-        [string]$Computername = $env:COMPUTERNAME,
+        [String]$Computername = $env:COMPUTERNAME,
         [Parameter(ParameterSetName = "session")]
         [ValidateNotNullOrEmpty()]
         [Microsoft.Management.Infrastructure.CimSession]$CimSession
     )
     Begin {
-        Write-Verbose "Starting $($myinvocation.MyCommand)"
+        Write-Verbose "Starting $($MyInvocation.MyCommand)"
         $cimParams = @{
-            Classname  = "win32_directory"
+            ClassName  = "win32_directory"
             Filter     = ""
             CimSession = ""
         }
     } #begin
 
     Process {
-        Write-Verbose "Detected parameter set $($pscmdlet.ParameterSetName)"
+        Write-Verbose "Detected parameter set $($PSCmdlet.ParameterSetName)"
         Write-Verbose "Using PSBoundParameters:"
         $PSBoundParameters | Out-String | Write-Verbose
         if ($path -match '\\$') {
@@ -35,11 +35,11 @@ Function Get-CimFolder {
         }
 
         #if running locally, convert the path
-        if (($Computername -eq $env:COMPUTERNAME) -AND ($pscmdlet.ParameterSetName -eq 'Computer')) {
+        if (($Computername -eq $env:COMPUTERNAME) -AND ($PSCmdlet.ParameterSetName -eq 'Computer')) {
             Write-Verbose "Testing local path $path"
             Try {
                 #convert Path to a file system path
-                $cpath = Convert-Path -Path $path -ErrorAction Stop
+                $cPath = Convert-Path -Path $path -ErrorAction Stop
             }
             Catch {
                 Write-Warning "Can't validate the path $path. $($_.Exception.Message)"
@@ -52,11 +52,11 @@ Function Get-CimFolder {
             $cPath =  [System.IO.Path]::GetFullPath($path)
         }
         #escape any \ in the path
-        $rPath = $cpath.replace("\", "\\")
+        $rPath = $cPath.replace("\", "\\")
         $cimParams.Filter = "Name='$rpath'"
 
         Write-Verbose "Using query $($cimparams.filter)"
-        if ($pscmdlet.ParameterSetName -eq 'computer') {
+        if ($PSCmdlet.ParameterSetName -eq 'computer') {
             Try {
                 $cimSession = New-CimSession -ComputerName $computername -ErrorAction Stop
                 $tmpSession = $True
@@ -71,7 +71,7 @@ Function Get-CimFolder {
         }
         $cimParams.Cimsession = $CimSession
 
-        Write-Verbose "Getting $cpath on $($cimsession.computername)"
+        Write-Verbose "Getting $cPath on $($cimsession.computername)"
 
         $main = Get-CimInstance @cimParams
 
@@ -86,8 +86,8 @@ Function Get-CimFolder {
         if ($private:cf.count -gt 0 -AND $Recurse) {
             Write-Verbose "Recursing..."
             foreach ($fldr in $private:cf) {
-                Write-Verbose "... $($fldr.fullname)"
-                Get-CimFolder -path $fldr.fullname -CimSession $cimSession -recurse
+                Write-Verbose "... $($fldr.FullName)"
+                Get-CimFolder -path $fldr.FullName -CimSession $cimSession -recurse
             }
 
         }
@@ -98,6 +98,6 @@ Function Get-CimFolder {
         }
     } #Process
     End {
-        Write-Verbose "Ending $($myinvocation.MyCommand)"
+        Write-Verbose "Ending $($MyInvocation.MyCommand)"
     }
 }

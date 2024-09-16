@@ -3,42 +3,42 @@
 
 #the classes have no methods and use the default constructor
 Class cimFolder {
-    [string]$FullName
-    [string]$Name
+    [String]$FullName
+    [String]$Name
     [bool]$Archive
     [bool]$Compressed
     [DateTime]$CreationDate
-    [string]$Computername
-    [string]$Drive
+    [String]$Computername
+    [String]$Drive
     [bool]$Encrypted
     [bool]$Hidden
     [DateTime]$LastAccessed
     [DateTime]$LastModified
-    [string]$Path
+    [String]$Path
     [bool]$Readable
     [bool]$System
     [bool]$Writeable
-    [string]$Mode
+    [String]$Mode
 } #cimFolder class
 
 Class cimFile {
-    [string]$FullName
-    [string]$Name
+    [String]$FullName
+    [String]$Name
     [bool]$Archive
     [bool]$Compressed
     [DateTime]$CreationDate
-    [string]$Computername
-    [string]$Drive
+    [String]$Computername
+    [String]$Drive
     [bool]$Encrypted
     [bool]$Hidden
     [int64]$FileSize
     [DateTime]$LastAccessed
     [DateTime]$LastModified
-    [string]$Path
+    [String]$Path
     [bool]$Readable
     [bool]$System
     [bool]$Writeable
-    [string]$Mode
+    [String]$Mode
 } #cimFile class
 
 #endregion
@@ -46,12 +46,12 @@ Class cimFile {
 #region helper functions to create the new object types.
 
 Function Get-Mode {
-    [cmdletbinding()]
+    [CmdletBinding()]
     param([object]$CimObject)
 
     # use the ternary operator to simplify the code,
     # although this will require PowerShell 7.x
-    $dir = $CimObject.CimClass.Cimclassname -match 'Directory' ? "d" : "-"
+    $dir = $CimObject.CimClass.CimClassName -match 'Directory' ? "d" : "-"
     $archive = $CimObject.archive ? "a" : "-"
     $ro = $CimObject.writeable ? "-" : "r"
     $system = $CimObject.System ? "s" : "-"
@@ -60,7 +60,7 @@ Function Get-Mode {
     "{0}{1}{2}{3}{4}" -f $Dir, $Archive, $RO, $Hidden, $System
 } #Get-Mode
 Function New-CimFile {
-    [cmdletbinding()]
+    [CmdletBinding()]
     Param(
         [Parameter(Position = 0, Mandatory, ValueFromPipeline)]
         [object]$CimObject
@@ -75,7 +75,7 @@ Function New-CimFile {
         }
 
         $file.name = Split-Path -Path $CimObject.caption -Leaf
-        $file.fullname = $CimObject.Caption
+        $file.FullName = $CimObject.Caption
         $file.computername = $CimObject.CSName
         $file.mode = Get-Mode $CimObject
 
@@ -86,7 +86,7 @@ Function New-CimFile {
     }
 } #New-CimFile
 Function New-CimFolder {
-    [cmdletbinding()]
+    [CmdletBinding()]
     Param(
         [Parameter(Position = 0, Mandatory, ValueFromPipeline)]
         [object]$CimObject
@@ -101,7 +101,7 @@ Function New-CimFolder {
         }
 
         $folder.name = Split-Path -Path $CimObject.caption -Leaf
-        $folder.fullname = $CimObject.Caption
+        $folder.FullName = $CimObject.Caption
         $folder.computername = $CimObject.CSName
         $folder.mode = Get-Mode $CimObject
 

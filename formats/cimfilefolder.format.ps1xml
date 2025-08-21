@@ -25,14 +25,6 @@ This file will only work properly in PowerShell 7
         <SelectionSetName>cimFileTypes</SelectionSetName>
       </ViewSelectedBy>
       <GroupBy>
-        <!--
-            You can also use a scriptblock to define a custom property name.
-            You must have a Label tag.
-            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
-            <Label>Computername</Label>
-
-            Use <Label> to set the displayed value.
--->
         <Label>Path</Label>
         <ScriptBlock>
           $p = Join-Path -path $_.drive -childpath $_.path
@@ -67,10 +59,6 @@ This file will only work properly in PowerShell 7
         <TableRowEntries>
           <TableRowEntry>
             <TableColumnItems>
-              <!--
-            By default the entries use property names, but you can replace them with scriptblocks.
-            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
--->
               <TableColumnItem>
                 <PropertyName>Mode</PropertyName>
               </TableColumnItem>
@@ -95,6 +83,10 @@ This file will only work properly in PowerShell 7
                   elseif ($_.GetType().Name -eq 'cimFolder') {
                     "`e[38;5;228m$($_.name)`e[0m"
                   }
+                  elseif ($_.size -eq 0) {
+                    <!-- highlight 0 byte files-->
+                     "`e[38;5;201m$($_.name)`e[0m"
+                  }
                   else {
                     $_.name
                   }
@@ -112,14 +104,6 @@ This file will only work properly in PowerShell 7
         <SelectionSetName>cimFileTypes</SelectionSetName>
       </ViewSelectedBy>
       <GroupBy>
-        <!--
-            You can also use a scriptblock to define a custom property name.
-            You must have a Label tag.
-            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
-            <Label>Computername</Label>
-
-            Use <Label> to set the displayed value.
--->
         <Label>Path</Label>
         <ScriptBlock>$p = Join-Path -path $_.drive -childpath $_.path
           "`e[38;5;228m[$($_.computername)] $p`e[0m"
@@ -158,10 +142,6 @@ This file will only work properly in PowerShell 7
         <TableRowEntries>
           <TableRowEntry>
             <TableColumnItems>
-              <!--
-            By default the entries use property names, but you can replace them with scriptblocks.
-            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
--->
               <TableColumnItem>
                 <PropertyName>Mode</PropertyName>
               </TableColumnItem>

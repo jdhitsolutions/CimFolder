@@ -1,6 +1,6 @@
 # CimFolder
 
-<p align="left"><img align="left" src = "images/folder.png"></p>
+<p align="left"><img align="left" src = "images/folder.png" style="padding-right: 10px;"></p>
 
 This module uses CIM classes to retrieve files and directories from the local computer or a remote computer by name or using a CIMSession. It only has a single command, `Get-CimFolder` with an alias of `cdir`. The module includes [help documentation](docs/Get-CimFolder.md) for the command. The module includes a [custom formatting file](formats/cimfilefolder.format.ps1xml) with several defined views.
 
@@ -20,19 +20,19 @@ Here are a few examples of the module in action.
 
 The current version of the command lacks filtering capabilities. But the module includes an additional custom table view.
 
-|![Age view](images/ageview.png)|
+|![Age View](images/ageview.png)|
 |:--:|
 |_Using a custom view_|
 
 You can query a remote computer by its name, or create a CIM Session.
 
-|![cimsession](images/cimsession.png)|
+|![CimSession](images/cimsession.png)|
 |:--:|
 |_Using a CIMSession_|
 
 As an interesting side note, using the CIM cmdlets appear to circumvent access-control. At least, enough to get a listing.
 
-|![access override](images/access.png)|
+|![Access Override](images/access.png)|
 |:--:|
 |_Avoiding Access Denied_|
 
@@ -46,17 +46,14 @@ When I first published this module and wrote about it, I thought there was a pot
 
 The module has room for improvement if you'd like a challenge.
 
-+ Add parameter validation to ensure Path is a FileSystem path or at least looks like one.get
-+ Add parameters to display only directories or files.
-+ Don't display hidden files and folders by default.
-+ Add a `-Force` parameter to display hidden files and folders.
-+ Add a color display for 0-byte files.
-+ Add a color display based file extension.
-+ Add filtering options for file names.
-+ Add better error handling if the path on the remote computer doesn't exist.
-+ Add an `-Asjob` parameter to run as a background job.
-+ Improve performance for a large number of subfolders by using `Foreach-Object -parallel`.
+- Add parameter validation to ensure `Path` is a FileSystem path or at least looks like one.
+- Don't display hidden files and folders by default.
+- Add a `-Force` parameter to display hidden files and folders.
+- Add a color display based file extension.
+- Add filtering options for file names.
+- Add an `-AsJob` parameter to run as a background job.
+- Improve performance for a large number of sub-folders by using `Foreach-Object -parallel`.
+
+I would happily consider any pull requests that implement these or other features.
 
 There are no plans to publish this module to the PowerShell Gallery as it is not a production-ready tool and performs poorly on large directories compared to traditional commands.
-
-last updated _2021-01-08 18:55:12ZZ_

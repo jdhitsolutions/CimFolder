@@ -11,15 +11,16 @@
     </command:details>
     <maml:description>
       <maml:para>This command uses CIM to list files and folders. You can query a local or remote computer using CIM and a WSMAN connection. Be aware that not every file and folder is completely registered. You may run the command on a folder and not see every file or folder.</maml:para>
+      <maml:para>This command is a proof-of-concept and is not optimized for production use, especially when using on large folders.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-CimFolder</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Path</maml:name>
-          <maml:Description>
-            <maml:para>Enter the folder path. Don't include the trailing \. This path is relative to the computer or CIMSession.</maml:para>
-          </maml:Description>
+          <maml:description>
+            <maml:para>Enter the folder path. Don't include the trailing \ unless you are querying a drive root e.g. D:\. This path is relative to the computer or CIMSession.</maml:para>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -29,9 +30,9 @@
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>CimSession</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Use an existing CIMSession.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">CimSession</command:parameterValue>
           <dev:type>
             <maml:name>CimSession</maml:name>
@@ -41,9 +42,9 @@
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Recurse</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para></maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -55,9 +56,9 @@
         <maml:name>Get-CimFolder</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Path</maml:name>
-          <maml:Description>
-            <maml:para>Enter the folder path. Don't include the trailing \. This path is relative to the computer or CIMSession.</maml:para>
-          </maml:Description>
+          <maml:description>
+            <maml:para>Enter the folder path. Don't include the trailing \ unless you are querying a drive root e.g. D:\. This path is relative to the computer or CIMSession.</maml:para>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -67,9 +68,9 @@
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cn">
           <maml:name>Computername</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>The name of a remote computer to connect to.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -79,9 +80,9 @@
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Recurse</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para></maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -93,9 +94,9 @@
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>CimSession</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Use an existing CIMSession.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">CimSession</command:parameterValue>
         <dev:type>
           <maml:name>CimSession</maml:name>
@@ -105,9 +106,9 @@
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cn">
         <maml:name>Computername</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>The name of a remote computer to connect to.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -117,9 +118,9 @@
       </command:parameter>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Path</maml:name>
-        <maml:Description>
-          <maml:para>Enter the folder path. Don't include the trailing \. This path is relative to the computer or CIMSession.</maml:para>
-        </maml:Description>
+        <maml:description>
+          <maml:para>Enter the folder path. Don't include the trailing \ unless you are querying a drive root e.g. D:\. This path is relative to the computer or CIMSession.</maml:para>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -129,9 +130,9 @@
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Recurse</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para></maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -182,15 +183,15 @@
 
 Mode               LastModified           Size Name
 ----               ------------           ---- ----
-d----      12/2/2020 4:35:03 PM                data
-d----     12/1/2020 12:30:56 PM                demo
-d----     12/23/2020 9:13:37 AM                rmhpstools
-d----      12/1/2020 2:58:22 PM                samples
--a---     12/1/2020 11:30:55 AM              0 a.csv
--a---     12/1/2020 12:40:03 PM              0 a.md
--a---     12/31/2020 9:10:15 AM          14346 a.txt
--a---    12/31/2020 12:15:44 PM         171394 a.xml
--a---     12/31/2020 9:13:16 AM          28866 aa.ps1
+d----      12/2/2024 4:35:03 PM                data
+d----     12/1/2024 12:30:56 PM                demo
+d----     12/23/2024 9:13:37 AM                jdhpstools
+d----      12/1/2024 2:58:22 PM                samples
+-a---     12/1/2024 11:30:55 AM              0 a.csv
+-a---     12/1/2024 12:40:03 PM              0 a.md
+-a---     12/31/2024 9:10:15 AM          14346 a.txt
+-a---    12/31/2024 12:15:44 PM         171394 a.xml
+-a---     12/31/2024 9:13:16 AM          28866 aa.ps1
 ...</dev:code>
         <dev:remarks>
           <maml:para>Folders and some files will be displayed in color.</maml:para>
@@ -213,6 +214,14 @@ d----      2/20/2019 5:53:23 PM                WIN</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Get-ChildItem</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-CimInstance</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-CimAssociatedInstance</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>

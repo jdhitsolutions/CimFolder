@@ -19,6 +19,9 @@ Class cimFolder {
     [bool]$System
     [bool]$Writeable
     [String]$Mode
+
+    #This class has no methods
+
 } #cimFolder class
 
 Class cimFile {
@@ -39,6 +42,9 @@ Class cimFile {
     [bool]$System
     [bool]$Writeable
     [String]$Mode
+
+    #This class has no methods
+
 } #cimFile class
 
 #endregion

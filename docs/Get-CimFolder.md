@@ -29,6 +29,8 @@ Get-CimFolder [[-Path] <String>] [-Recurse] [-CimSession <CimSession>] [<CommonP
 
 This command uses CIM to list files and folders. You can query a local or remote computer using CIM and a WSMAN connection. Be aware that not every file and folder is completely registered. You may run the command on a folder and not see every file or folder.
 
+This command is a proof-of-concept and is not optimized for production use, especially when using on large folders.
+
 ## EXAMPLES
 
 ### Example 1
@@ -40,15 +42,15 @@ PS C:\> Get-CimFolder c:\work
 
 Mode               LastModified           Size Name
 ----               ------------           ---- ----
-d----      12/2/2020 4:35:03 PM                data
-d----     12/1/2020 12:30:56 PM                demo
-d----     12/23/2020 9:13:37 AM                rmhpstools
-d----      12/1/2020 2:58:22 PM                samples
--a---     12/1/2020 11:30:55 AM              0 a.csv
--a---     12/1/2020 12:40:03 PM              0 a.md
--a---     12/31/2020 9:10:15 AM          14346 a.txt
--a---    12/31/2020 12:15:44 PM         171394 a.xml
--a---     12/31/2020 9:13:16 AM          28866 aa.ps1
+d----      12/2/2024 4:35:03 PM                data
+d----     12/1/2024 12:30:56 PM                demo
+d----     12/23/2024 9:13:37 AM                jdhpstools
+d----      12/1/2024 2:58:22 PM                samples
+-a---     12/1/2024 11:30:55 AM              0 a.csv
+-a---     12/1/2024 12:40:03 PM              0 a.md
+-a---     12/31/2024 9:10:15 AM          14346 a.txt
+-a---    12/31/2024 12:15:44 PM         171394 a.xml
+-a---     12/31/2024 9:13:16 AM          28866 aa.ps1
 ...
 ```
 

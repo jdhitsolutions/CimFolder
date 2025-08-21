@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [1.0.1] - 2025-08-21
+
+### Changed
+
+- Updated help documentation to reflect new parameters.
+- Updated module description in the manifest.
+
 ## [1.0.0] - 2025-08-21
 
 ### Added
@@ -50,7 +57,8 @@
 
 - Initial files
 
-[Unreleased]: https://github.com/jdhitsolutions/CimFolder/compare/v1.0.0..HEAD
+[Unreleased]: https://github.com/jdhitsolutions/CimFolder/compare/v1.0.1..HEAD
+[1.0.1]: https://github.com/jdhitsolutions/CimFolder/compare/v1.0.0..v1.0.1
 [1.0.0]: https://github.com/jdhitsolutions/CimFolder/compare/vv0.5.0..v1.0.0
 [v0.5.0]: https://github.com/jdhitsolutions/CimFolder/compare/v0.4.0..v0.5.0
 [v0.4.0]: https://github.com/jdhitsolutions/CimFolder/compare/v0.3.0..v0.4.0

@@ -16,13 +16,14 @@ Get files and folders using CIM.
 ### computer (Default)
 
 ```yaml
-Get-CimFolder [[-Path] <String>] [-Recurse] [-Computername <String>] [<CommonParameters>]
+Get-CimFolder [-Path] <String> [-ItemType <String>] [-Recurse] [-Force] [-Computername <String>]
+[<CommonParameters>]
 ```
 
 ### session
 
 ```yaml
-Get-CimFolder [[-Path] <String>] [-Recurse] [-CimSession <CimSession>] [<CommonParameters>]
+Get-CimFolder [-Path] <String> [-ItemType <String>] [-Recurse] [-Force] [-CimSession <CimSession>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -67,6 +68,26 @@ Mode               LastModified           Size Name
 ----               ------------           ---- ----
 d----      2/20/2019 5:53:23 PM                WIN
 ```
+
+### Example 3
+
+```powershell
+Get-CimFolder -Path C:\temp\ -ItemType Folder
+
+   Path: [PROSPERO] c:\temp\
+
+Mode               LastModified           Size Name
+----               ------------           ---- ----
+d----       5/8/2025 3:01:22 PM                data
+d----      6/17/2025 2:26:30 PM                en-US
+d----       5/9/2025 9:52:22 AM                htmlAgilityPack
+d----      6/13/2025 3:59:25 PM                PSBluesky
+d----       6/2/2025 3:39:29 PM                repo.txt
+d----      7/29/2025 5:06:33 PM                tools
+d----       6/4/2025 8:57:31 AM                workflows
+```
+
+Get only folders in the C:\temp\ folder.
 
 ## PARAMETERS
 
@@ -132,6 +153,38 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Force
+
+Show hidden folders and files.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ItemType
+
+Specify the type of item to return. Default is All
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
@@ -148,7 +201,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: http://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 
